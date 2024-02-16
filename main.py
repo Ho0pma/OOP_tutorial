@@ -332,24 +332,139 @@
 # print(*tr.translate('go'))
 
 # ------------------------------------------------------------------------------------------------ #
+# инициализатор и финализатор
+# class Point:
+#     color = 'red'
+#
+#     def __init__(self):
+#         print('вызов __init__')
+#         self.x = 0
+#         self.y = 0
+#
+# pt = Point()
+# print(pt.__dict__)
 
+# ------------------------------------------------------------------------------------------------ #
+# Как задавать при создании эк локальные атрибуты через мм __init__?
+# class Point:
+#     color = 'red'
+#
+#     def __init__(self, a=0, b=0):
+#         self.x = a
+#         self.y = b
+#
+#     def __del__(self):
+#         print('Удаление объекта' + str(self))
+#
+# pt = Point(10, 20)
 
+# ------------------------------------------------------------------------------------------------ #
+# задача: 1.5.1 - Объявить класс, что бы можно было при создании эк создавать ла
 
+# class Money:
+#     def __init__(self, money):
+#         self.money = money
+#
+# my_money = Money(100)
+# print(my_money.__dict__)
 
+# ------------------------------------------------------------------------------------------------ #
+# задача: 1.5.2 - Объявить класс, что бы можно было при создании эк создавать ла
+# + чтобы был необязательный аргумент
+# создать тысячу объектов с координатами (1, 1), (3, 3), (5, 5), ... и поместить в список
 
+# class Point:
+#     def __init__(self, x, y, color='black'):
+#         self.x = x
+#         self.y = y
+#         self.color = color
+#
+# points = [Point(i, i) for i in range(2000) if i % 2 != 0]
+# # второй вариант создания списка
+# # points = [Point(c, c) for c in range(1, 2000, 2)]
+#
+# points[1].color = 'yellow'
+# # for i in points:
+# #     print(i.x, i.y, i.color)
+# # print(len(points))
 
+# ------------------------------------------------------------------------------------------------ #
+# задача: 1.5.3 - Объявить 3 класса. Создать 3 эк, с передаваемыми аргументами.
+# import random
+# class Line:
+#     def __init__(self, a, b, c, d):
+#         self.sp = a, b
+#         self.ep = c, d
+#
+# class Rect:
+#     def __init__(self, a, b, c, d):
+#         self.sp = a, b
+#         self.ep = c, d
+#
+# class Ellipse:
+#     def __init__(self, a, b, c, d):
+#         self.sp = a, b
+#         self.ep = c, d
+#
+# name_classes = ['Line', 'Rect', 'Ellipse']
+# r_int = [random.randint(1, 100) for i in range(4)]
+# elements = [globals()[random.choice(name_classes)](r_int[0], r_int[1], r_int[2], r_int[3])
+#             for _ in range(217)]
+#
+# for i in elements:
+#     if isinstance(i, Line):
+#         i.ep = 0, 0
+#         i.sp = 0, 0
+#     print(i.ep, i.sp)
 
+# ------------------------------------------------------------------------------------------------ #
+# второй вар, получше
+# import random
+#
+# class Figure:
+#     def __init__(self, a, b, c, d):
+#         self.sp = a, b
+#         self.ep = c, d
+# class Line(Figure):
+#     pass
+#
+# class Rect(Figure):
+#     pass
+#
+# class Ellipse(Figure):
+#     pass
+#
+#
+# elements = [random.choice((Line, Rect, Ellipse))(*random.sample(range(10), 4)) for _ in range(217)]
+# # elements = [(Line, Rect, Ellipse)[random.randint(0, 2)](1, 2, 3, 4) for _ in range(217)]
+#
+# for i in elements:
+#     if isinstance(i, Line):
+#         i.ep = 0, 0
+#         i.sp = 0, 0
+#     print(i.ep, i.sp)
 
-
-
-
-
-
-
-
-
-
-
+# ------------------------------------------------------------------------------------------------ #
+# class TriangleChecker:
+#     def __init__(self, a, b, c):
+#         self.a = a
+#         self.b = b
+#         self.c = c
+#
+#     def is_triangle(self):
+#         if not all(map(lambda x: type(x) in (int, float), (self.a, self.b, self.c))):
+#             return 1
+#         if not all(map(lambda x: x > 0, (self.a, self.b, self.c))):
+#             return 1
+#         elif self.a + self.b <= self.c or self.a + self.c <= self.b or self.c + self.b <= self.a:
+#             return 2
+#         else:
+#             return 3
+#
+# a, b, c = map(int, input().split()) # эту строчку не менять
+#
+# tr = TriangleChecker(a, b, c)
+# print(tr.is_triangle())
 
 
 
