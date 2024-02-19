@@ -466,15 +466,172 @@
 # tr = TriangleChecker(a, b, c)
 # print(tr.is_triangle())
 
+# второй вариант
+# class TriangleChecker:
+#     def __init__(self, a, b, c):
+#         self.lst = [a, b, c]
+#
+#     def is_triangle(self):
+#         for num in self.lst:
+#             if not isinstance(num, (int, float)) or num <= 0:
+#                 return 1
+#         if max(self.lst) >= sum(self.lst) - max(self.lst):
+#             return 2
+#         return 3
+#
+# a, b, c = map(int, input().split())
+#
+# tr = TriangleChecker(a, b, c)
+# print(tr.is_triangle())
 
+# ------------------------------------------------------------------------------------------------ #
 
+# class Graph:
+#     def __init__(self, data, is_show=True):
+#         self.data = data[:] # копия списка (полный срез)
+#         self.is_show = is_show
+#
+#     def set_data(self, data):
+#         self.data = data[:]
+#
+#     def _get_str_data(self):
+#         # ' '.join(map(str, self.data))
+#         return ' '.join([str(i) for i in self.data])
+#
+#     def _show_closed_graph(self):
+#         print("Отображение данных закрыто")
+#
+#     def show_table(self):
+#         if self.is_show:
+#             print(self._get_str_data())
+#         else:
+#             self._show_closed_graph()
+#
+#     def show_graph(self):
+#         if self.is_show:
+#             return print(f'Графическое отображение данных: {self._get_str_data()}')
+#         else:
+#             self._show_closed_graph()
+#
+#     def show_bar(self):
+#         if self.is_show:
+#             return print(f'Столбчатая диаграмма: {self._get_str_data()}')
+#         else:
+#             self._show_closed_graph()
+#
+#     def set_show(self, fl_show):
+#         self.is_show = fl_show
+#
+# data_graph = list(map(int, input().split()))
+# gr = Graph(data_graph)
+# gr.show_bar()
+# gr.set_show(fl_show=False)
+# gr.show_table()
+# ------------------------------------------------------------------------------------------------ #
 
+# class CPU:
+#     def __init__(self, name, fr):
+#         self.name = name
+#         self.fr = fr
+#
+#
+# class Memory:
+#     def __init__(self, name, volume):
+#         self.name = name
+#         self.volume = volume
+#
+#
+# class MotherBoard:
+#     def __init__(self, name, cpu, *mems):  # в mems можно будет ввести сколько хочешь (список)
+#         self.name = name
+#         self.cpu = cpu # ссылка на объект класса CPU
+#         self.total_mem_slots = 4
+#         self.mem_slots = mems[:self.total_mem_slots]
+#
+#     def get_config(self):
+#         return [
+#             f'Материнская плата: {self.name}',
+#             f'Центральный процессор: {self.cpu.name}, {self.cpu.fr}',
+#             f'Слотов памяти: {self.total_mem_slots}',
+#             # ниже демонстрация как ссылаться на объект другого класса, если нет ссылки
+#             'Память: ' + '; '.join(map(lambda x: f'{x.name} - {x.volume}', self.mem_slots))
+#         ]
+#
+# mb = MotherBoard(
+#     'board_name',
+#     CPU('cpu_name', 200),
+#     Memory('mem_name1', 100),
+#     Memory('mem_name2', 200),
+#     Memory('mem_name3', 300)
+# )
+#
+# print(mb.get_config())
+# ------------------------------------------------------------------------------------------------ #
+# class Things:
+#     def __init__(self, name, price):
+#         self.name = name
+#         self.price = price
+#
+# class Table(Things):
+#     pass
+#
+# class TV(Things):
+#     pass
+#
+# class Notebook(Things):
+#     pass
+#
+# class Cup(Things):
+#     pass
+#
+#
+# class Cart:
+#     def __init__(self):
+#         self.goods = []
+#
+#     def add(self, gd):
+#         self.goods.append(gd)
+#
+#     def remove(self, indx):
+#         self.goods.pop(indx)
+#
+#     def get_list(self):
+#         return [f'{i.name}: {i.price}' for i in self.goods]
+#
+#
+# cart = Cart()
+# cart.add(TV('tv1', 100))
+# cart.add(Table('tbl1', 10))
+# cart.add(Notebook('notbk', 200))
+# cart.add(Notebook('notbk2', 3200))
+# cart.add(Cup('cp', 0))
+#
+# print(cart.get_list())
+# ------------------------------------------------------------------------------------------------ #
 
+# class ListObject:
+#     def __init__(self, data):
+#         self.data = data
+#         self.next_obj = None
+#
+#     def link(self, obj):
+#         self.next_obj = obj
+#
+# lst_in = ['1. Первые шаги в ООП',
+#           '1.1 Как правильно проходить этот курс',
+#           '1.2 Концепция ООП простыми словами',
+#           '1.3 Классы и объекты. Атрибуты классов и объектов',
+#           '1.4 Методы классов. Параметр self',
+#           '1.5 Инициализатор init и финализатор del',
+#           '1.6 Магический метод new. Пример паттерна Singleton',
+#           '1.7 Методы класса (classmethod) и статические методы (staticmethod)']
+#
+# head_obj = ListObject(lst_in[0])
+# obj = head_obj
+# for i in range(1, len(lst_in)):
+#     obj_new = ListObject(lst_in[i])
+#     obj.link(obj_new)
 
-
-
-
-
-
+# ------------------------------------------------------------------------------------------------ #
 
 
