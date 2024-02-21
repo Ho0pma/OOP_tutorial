@@ -607,8 +607,10 @@
 # cart.add(Cup('cp', 0))
 #
 # print(cart.get_list())
+
 # ------------------------------------------------------------------------------------------------ #
 
+# связный список
 # class ListObject:
 #     def __init__(self, data):
 #         self.data = data
@@ -631,7 +633,202 @@
 # for i in range(1, len(lst_in)):
 #     obj_new = ListObject(lst_in[i])
 #     obj.link(obj_new)
+#     obj = obj_new
 
 # ------------------------------------------------------------------------------------------------ #
+# сапер
+# from random import randint
+# class Cell:
+#     def __init__(self, around_mines=0, mine=False):
+#         self.around_mines = around_mines
+#         self.mine = mine
+#         self.fl_open = False
+#
+# class GamePole:
+#     def __init__(self, N, M):
+#         self._n = N
+#         self._m = M
+#         self.pole = [[Cell() for n in range(self._n)] for n in range(self._n)]
+#         self.init()
+#
+#     def init(self):
+#         m = 0
+#         while m < self._m:
+#             # генерируем растановку мин
+#             i = randint(0, self._n - 1)
+#             j = randint(0, self._n - 1)
+#             if self.pole[i][j].mine:
+#                 continue
+#             self.pole[i][j].mine = True
+#             m += 1
+#         indx = (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)
+#         for x in range(self._n):
+#             for y in range(self._n):
+#                 if not self.pole[x][y].mine:
+#                     mines = sum((self.pole[x+i][y+j].mine for i, j in indx if 0 <= x + i < self._n and 0 <= y + j < self._n))
+#                     self.pole[x][y].around_mines = mines
+#
+#     def show(self):
+#         for row in self.pole:
+#             print(*map(lambda x: '#' if not x.fl_open else x.around_mines if not x.mine else '*', row))
+#
+#
+# pole_game = GamePole(10, 12)
+# pole_game.show()
+
+# ------------------------------------------------------------------------------------------------ #
+
+# class Point:
+#     def __new__(cls, *args, **kwargs):
+#         print('вызов метода new для ' + str(cls))
+#         return super().__new__(cls)
+#
+#     def __init__(self, x=0, y=0):
+#         print('вызов init' + str(self))
+#         self.x = x
+#         self.y = y
+#
+# pt = Point(1, 2)
+
+# ------------------------------------------------------------------------------------------------ #
+# Singleton - можно создавать только один эк этого класса
+
+# class DataBase:
+#     __instance = None # ссылка на эк, если есть
+#
+#     def __new__(cls, *args, **kwargs):
+#         if cls.__instance is None:
+#             cls.__instance = super().__new__(cls) # создание эк
+#
+#         return cls.__instance # если уже создан вернется старый
+#
+#     def __del__(self):
+#         DataBase.__instance = None # если сборщик мусора удалит эк, то мы присвоим его None
+#                                    # и сможем опять создать эк.
+#
+#     def __init__(self, user, psw, port):
+#         self.user = user
+#         self.psw = psw
+#         self.port = port
+#
+#     def connect(self):
+#         print(f'Соединение с бд: {self.user}, {self.psw}, {self.port}')
+#
+#     def close(self):
+#         print('Закрытие соединения с бд')
+#
+#     def read(self):
+#         print('Чтение из бд')
+#
+#     def write(self, data):
+#         print(f'Запись в бд {data}')
+#
+#
+# db = DataBase('root', '123', 80)
+# db2 = DataBase('root2', '5678', 40) # пытаемся создать второй эк
+#
+# print(id(db), id(db2)) # смотрим id эк. Если паттерн работает - должен быть одинаковый.
+#
+# db.connect()
+# db2.connect()
+
+# ------------------------------------------------------------------------------------------------ #
+# class AbstractClass:
+#     def __new__(cls, *args, **kwargs):
+#         return 'Ошибка: нельзя создавать объекты абстрактного класса'
+#
+# obj = AbstractClass()
+
+# ------------------------------------------------------------------------------------------------ #
+# class SingletonFive:
+#     count = 0
+#     __instance = None
+#     def __new__(cls, *args, **kwargs):
+#         if cls.count < 5:
+#             cls.__instance = super().__new__(cls)
+#             cls.count += 1
+#         return cls.__instance
+#
+#     def __init__(self, name):
+#         self.name = name
+#
+#
+# objs = [SingletonFive(str(n)) for n in range(10)]
+# for i in objs:
+#     print(id(i))
+
+# ------------------------------------------------------------------------------------------------ #
+# TYPE_OS = 1 # 1 - Windows; 2 - Linux
+#
+# class DialogWindows:
+#     name_class = "DialogWindows"
+#
+# class DialogLinux:
+#     name_class = "DialogLinux"
+#
+# class Dialog:
+#     def __new__(cls, *args, **kwargs):
+#         obj = None
+#         if TYPE_OS == 1:
+#             obj = super().__new__(DialogWindows)
+#         else:
+#             obj = super().__new__(DialogLinux)
+#
+#         obj.name = args[0]  # создаем локальное св-во внутри только что созданного объекта
+#                             # в args хранятся все передаваемые параметры те dlg = Dialog(вот эти)
+#         return obj
+#
+#
+# dlg = Dialog('name')
+# print(dlg.__dict__) # покажет, что ла создан
+# print(dlg) # покажет, что dlg - объект класса DialogWindows, а не Dialog
+
+# ------------------------------------------------------------------------------------------------ #
+# class Point:
+#     def __init__(self, x=0,y=0):
+#         self.x = x
+#         self.y = y
+#
+#     def clone(self):
+#         x, y = self.x, self.y
+#         return Point(x, y)
+#
+# pt = Point()
+# pt_clone = pt.clone()
+
+# # ------------------------------------------------------------------------------------------------ #
+# class Factory:
+#     def build_sequence(self):
+#         return []
+#
+#     def build_number(self, string):
+#         return float(string)
+#
+# class Loader:
+#     def parse_format(self, string, factory):
+#         seq = factory.build_sequence()
+#         for sub in string.split(","):
+#             item = factory.build_number(sub)
+#             seq.append(item)
+#
+#         return seq
+#
+#
+# # эти строчки не менять!
+# ld = Loader()
+# s = input()
+# res = ld.parse_format(s, Factory())
+# print(res)
+
+# # ------------------------------------------------------------------------------------------------ #
+
+
+
+
+
+
+
+
+
 
 
