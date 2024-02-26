@@ -821,14 +821,126 @@
 # print(res)
 
 # # ------------------------------------------------------------------------------------------------ #
+# classmethod
+#
+# class Vector:
+#     MIN_COORD = 1
+#     MAX_COORD = 100
+#
+#     @classmethod
+#     def validate(cls, arg):
+#         return cls.MIN_COORD <= arg <= cls.MAX_COORD
+#     def __init__(self, x, y):
+#         self.x = self.y = 0
+#         # делаем проверку через @classmethod
+#         # if Vector.validate(x) and Vector.validate(y):  # можно так, но лучше делать через ссылку
+#         if self.validate(x) and self.validate(y):
+#             self.x = x
+#             self.y = y
+#
+#     def get_coord(self):
+#         return self.x, self.y
+#
+# v = Vector(1, 200)
+# print(v.get_coord()) # или print(Vector.get_coord(v))
+# print(Vector.validate(5))
 
+# ------------------------------------------------------------------------------------------------ #
+# @staticmethod
 
+# class Vector:
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#         print(self.norm2(self.x, self.y))
+#
+#     @staticmethod
+#     def norm2(x, y):
+#         return x**x + y**y
+#
+# v = Vector(1, 2)
 
+# ------------------------------------------------------------------------------------------------ #
+# class Factory:
+#     @staticmethod
+#     def build_sequence():
+#         return []
+#     @staticmethod
+#     def build_number(string):
+#         # return list(map(lambda x: int(x), string.split(', ')))
+#         return int(string)
+#
+#
+# class Loader:
+#     @staticmethod
+#     def parse_format(string, factory):
+#         seq = factory.build_sequence()
+#         for sub in string.split(","):
+#             item = factory.build_number(sub)
+#             seq.append(item)
+#
+#         return seq
+#
+#
+# res = Loader.parse_format("1, 2, 3, -5, 10", Factory)
+# print(res)
 
+# ------------------------------------------------------------------------------------------------ #
+# from string import ascii_lowercase, digits
+#
+#
+# class TextInput:
+#     CHARS = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя " + ascii_lowercase
+#     CHARS_CORRECT = CHARS + CHARS.upper() + digits
+#
+#     def __init__(self, name, size=10):
+#         self.check_name(name)
+#         self.name = name
+#         self.size = size
+#
+#     def get_html(self):
+#         return f"<p class='login'>{self.name}: <input type='text' size={self.size} />"
+#
+#     @classmethod
+#     def check_name(cls, name):
+#         if type(name) != str or len(name) < 3 or len(name) > 50:
+#             raise ValueError("некорректное поле name")
+#         if any(char not in cls.CHARS_CORRECT for char in name):
+#             raise ValueError("некорректное поле name")
+#
+#
+# class PasswordInput:
+#     CHARS = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя " + ascii_lowercase
+#     CHARS_CORRECT = CHARS + CHARS.upper() + digits
+#
+#     def __init__(self, name, size=10):
+#         self.check_name(name)
+#         self.name = name
+#         self.size = size
+#
+#     def get_html(self):
+#         return f"<p class='password'>{self.name}: <input type='text' size={self.size} />"
+#
+#     @classmethod
+#     def check_name(cls, name):
+#         if type(name) != str or len(name) < 3 or len(name) > 50:
+#             raise ValueError("некорректное поле name")
+#         if any(char not in cls.CHARS_CORRECT for char in name):
+#             raise ValueError("некорректное поле name")
+#
+#
+# class FormLogin:
+#     def __init__(self, lgn, psw):
+#         self.login = lgn
+#         self.password = psw
+#
+#     def render_template(self):
+#         return "\n".join(['<form action="#">', self.login.get_html(), self.password.get_html(), '</form>'])
+#
+#
+# login = FormLogin(TextInput("Логин"), PasswordInput("Пароль"))
+# html = login.render_template()
 
-
-
-
-
-
+# ------------------------------------------------------------------------------------------------ #
 
